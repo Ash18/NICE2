@@ -5,6 +5,8 @@
   import java.io.*;
   import javax.swing.event.*;
   import javax.swing.*;
+  import javax.swing.text.BadLocationException;
+  import javax.swing.text.rtf.RTFEditorKit;
   import java.net.*;
   import java.awt.event.*;
   import java.awt.*;
@@ -24,11 +26,26 @@
 	      helpURL = hlpURL; 
 	      editorpane = new JEditorPane();
 	      editorpane.setEditable(false);
-	      try {
-	          editorpane.setPage(helpURL);
-	      } catch (Exception ex) {
-	          ex.printStackTrace();
-	      }
+          RTFEditorKit rtf = new RTFEditorKit();
+	      editorpane.setEditorKit(rtf);
+          System.out.println(System.getProperty("user.dir"));
+          try {
+              InputStream fi ;
+              fi=helpURL.openStream();
+              rtf.read(fi, editorpane.getDocument(), 0);
+          } catch (FileNotFoundException e) {
+              System.out.println("File not found");
+          } catch (IOException e) {
+              System.out.println("I/O error");
+          } catch (BadLocationException e) {
+          }
+
+          //removed this code snippet because i t was buggy. RTF file was not been loaded properly.
+//	      try {
+//	          editorpane.setPage(helpURL);
+//	      } catch (Exception ex) {
+//	          ex.printStackTrace();
+//	      }
 	      //anonymous inner listener
 	      editorpane.addHyperlinkListener(new HyperlinkListener() {
 	          public void hyperlinkUpdate(HyperlinkEvent ev) {
