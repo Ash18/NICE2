@@ -12,6 +12,7 @@ import java.util.*;
 import javax.swing.filechooser.FileFilter;
 
 /** to handle and editor for reading and writing codeArea files. */
+
 public class CodeEditor extends JScrollPane implements UndoableEditListener {
     /** monospaced font for the code area*/
     public static final Font MONO = new Font("monospaced", Font.PLAIN, 12);
@@ -44,19 +45,7 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     public CodeEditor() {
         super();
         codeArea = new JTextArea();
-        // testing purpose
-        try{
-            Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
-            int startIndex = codeArea.getLineStartOffset(1);
-            int endIndex = codeArea.getLineEndOffset(1);
-            codeArea.getHighlighter().addHighlight(startIndex,endIndex,painter);
-        }
-        catch (Exception e){
-
-        }
-        //testing purpose
         undo = new UndoManager();
-
         // setup codeArea area
         codeArea.setFont(MONO);
 
