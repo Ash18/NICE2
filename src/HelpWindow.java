@@ -21,6 +21,7 @@
 	   * HelpWindow constructor
 	   * @param String and URL
 	   */
+
 	  public HelpWindow(String title, URL hlpURL) {
 	      super(title);
 	      helpURL = hlpURL; 

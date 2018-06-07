@@ -237,7 +237,7 @@ class LC extends JFrame implements KeyListener, ActionListener {
             }
         } );
 
-        
+        //setResizable(false);
         
         assembleCodeArea.getDocument().addDocumentListener(
         new DocumentListener() {

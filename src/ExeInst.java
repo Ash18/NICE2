@@ -41,6 +41,7 @@ public class ExeInst extends JPanel {
     Class cs = this.getClass();
   
     public ExeInst () {
+
     }
 
     /**
@@ -55,6 +56,7 @@ public class ExeInst extends JPanel {
         if(overRide||!isBPset) {     
             // common fetch phase 
             readMemoryWord();
+            System.out.println(MD);
             IR = MD;
             
             if(LC.HWI==true){

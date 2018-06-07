@@ -1,12 +1,5 @@
-
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.io.*;
-import java.awt.print.*;
-import java.util.*;
-import javax.swing.undo.*;
-import javax.swing.filechooser.FileFilter;
+import java.awt.event.ActionEvent;
 
 /**
 * Handles the menu actions of Run menu in the application
@@ -81,8 +74,10 @@ public class RunMenuAction extends AbstractAction {
     * @param e component triggering this call
     */
     public void runGoAction(ActionEvent e) {
+        System.out.println("pressed Run Button");
         if( !frame.assembleError) {
             frame.writeMessage("Start execution at PC = x"+frame.pc+".");
+            System.out.println("Executed");
             frame.runAssemble.setEnabled(false); frame.Assemble.setEnabled(false);
             frame.runResume.setEnabled(false); frame.Resume.setEnabled(false);
             frame.runGo.setEnabled(false); frame.Go.setEnabled(false);

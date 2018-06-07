@@ -3,6 +3,8 @@ import java.awt.Font;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import javax.swing.undo.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,6 +44,17 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     public CodeEditor() {
         super();
         codeArea = new JTextArea();
+        // testing purpose
+        try{
+            Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
+            int startIndex = codeArea.getLineStartOffset(1);
+            int endIndex = codeArea.getLineEndOffset(1);
+            codeArea.getHighlighter().addHighlight(startIndex,endIndex,painter);
+        }
+        catch (Exception e){
+
+        }
+        //testing purpose
         undo = new UndoManager();
 
         // setup codeArea area
