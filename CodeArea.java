@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 //testing for VCS purpose
+// testing again
 public class CodeArea extends DefaultStyledDocument {
     private int findLastNonWordChar (String text, int index) {
         while (--index >= 0) {
