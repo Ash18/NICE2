@@ -122,7 +122,6 @@ public class FileEditMenuAction extends AbstractAction implements UndoableEditLi
         undomanager = new UndoManager();
         undomanager.setLimit(1000);
         frame.codeEditor.codeArea.requestFocus();
-
         chooser = new JFileChooser();
         chooser.setFileFilter(new SourceFileFilter());
         status=chooser.showDialog(null,"Import");

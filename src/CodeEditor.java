@@ -3,8 +3,7 @@ import java.awt.Font;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
+import javax.swing.text.*;
 import javax.swing.undo.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -40,11 +39,67 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     private static final char newline = '\n';
     private static int count = 0;
     public CodeArea doc=null;
+    private static int findLastNonWordChar (String text, int index) {
+        while (--index >= 0) {
+            if (String.valueOf(text.charAt(index)).matches("\\W")) {
+                break;
+            }
+        }
+        return index;
+    }
 
+    private static int findFirstNonWordChar (String text, int index) {
+        while (index < text.length()) {
+            if (String.valueOf(text.charAt(index)).matches("\\W")) {
+                break;
+            }
+            index++;
+        }
+        return index;
+    }
     /** initialising the editor */
     public CodeEditor() {
         super();
-        doc=new CodeArea();
+
+        final StyleContext cont = StyleContext.getDefaultStyleContext();
+        final AttributeSet attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
+        final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
+        DefaultStyledDocument doc = new DefaultStyledDocument() {
+            public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
+                super.insertString(offset, str, a);
+                String text = getText(0, getLength());
+                int before = findLastNonWordChar(text, offset);
+                if (before < 0) before = 0;
+                int after = findFirstNonWordChar(text, offset + str.length());
+                int wordL = before;
+                int wordR = before;
+                while (wordR <= after) {
+                    if (wordR == after || String.valueOf(text.charAt(wordR)).matches("\\W")) {
+                        if (text.substring(wordL, wordR).matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)"))
+                            setCharacterAttributes(wordL, wordR - wordL, attr, false);
+                        else
+                            setCharacterAttributes(wordL, wordR - wordL, attrBlack, false);
+
+                        wordL = wordR;
+                    }
+                    wordR++;
+                }
+            }
+
+            public void remove (int offs, int len) throws BadLocationException {
+                super.remove(offs, len);
+                String text = getText(0, getLength());
+                int before = findLastNonWordChar(text, offs);
+                if (before < 0) before = 0;
+                int after = findFirstNonWordChar(text, offs);
+                if (text.substring(before, after).matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)")) {
+                    setCharacterAttributes(before, after - before, attr, false);
+                }
+                else {
+                    setCharacterAttributes(before, after - before, attrBlack, false);
+                }
+            }
+        };
         codeArea = new JTextPane(doc);
         undo = new UndoManager();
         // setup codeArea area
