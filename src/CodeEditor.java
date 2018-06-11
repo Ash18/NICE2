@@ -39,12 +39,13 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     private JLabel lineNumbers;
     private static final char newline = '\n';
     private static int count = 0;
-
+    public CodeArea doc=null;
 
     /** initialising the editor */
     public CodeEditor() {
         super();
-        codeArea = new JTextPane();
+        doc=new CodeArea();
+        codeArea = new JTextPane(doc);
         undo = new UndoManager();
         // setup codeArea area
         codeArea.setFont(MONO);

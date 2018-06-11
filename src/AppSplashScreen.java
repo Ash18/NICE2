@@ -20,6 +20,7 @@ public class AppSplashScreen extends JWindow {
     **/
 
     public void showSplash() {
+
         Color backgroundColor = Color.blue;
         Color foregroundColor = Color.white;
         JPanel content = (JPanel)getContentPane();

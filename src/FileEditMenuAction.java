@@ -137,12 +137,20 @@ public class FileEditMenuAction extends AbstractAction implements UndoableEditLi
         try {
             FileManager fm = new FileManager();
             if(mode) {
+
                 frame.codeEditor.codeArea.setText(fm.openFile(file.getAbsolutePath()));
                 frame.setTitle("2L Proc-Sim -"+file.getAbsolutePath());
             }
             else {
+                try{
+                    System.out.println("trying");
+                    frame.codeEditor.doc.insertString(frame.codeEditor.doc.getLength(),fm.openFile(file.getAbsolutePath()),null);
+                }
+                catch (Exception e){
+                    System.out.println("exception in appending");
+                }
                 //frame.codeEditor.codeArea.append(fm.openFile(file.getAbsolutePath()));
-                frame.codeEditor.codeArea.
+
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,"Error in saving file \n :"+ex.getMessage());
