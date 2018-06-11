@@ -18,7 +18,7 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     public static final Font MONO = new Font("monospaced", Font.PLAIN, 12);
 
     /** main code area */
-    public JTextArea codeArea;
+    public JTextPane codeArea;
     public JCheckBox writeAssembly, writeBinary;
     public JPanel modeSelection;
 
@@ -44,7 +44,7 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     /** initialising the editor */
     public CodeEditor() {
         super();
-        codeArea = new JTextArea();
+        codeArea = new JTextPane();
         undo = new UndoManager();
         // setup codeArea area
         codeArea.setFont(MONO);
@@ -524,7 +524,7 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
     *  @param s A line of source code.
     **/
     public void append(String s) {
-        this.codeArea.append(s);
+      //  this.codeArea.append(s);
         this.codeArea.setCaretPosition(0);
     }
 

@@ -3,6 +3,7 @@ import javax.swing.text.*;
 import java.awt.*;
 //testing for VCS purpose
 // testing again
+
 public class CodeArea extends DefaultStyledDocument {
     private int findLastNonWordChar (String text, int index) {
         while (--index >= 0) {
@@ -53,7 +54,6 @@ public class CodeArea extends DefaultStyledDocument {
 
             public void remove (int offs, int len) throws BadLocationException {
                 super.remove(offs, len);
-
                 String text = getText(0, getLength());
                 int before = findLastNonWordChar(text, offs);
                 if (before < 0) before = 0;

@@ -141,7 +141,8 @@ public class FileEditMenuAction extends AbstractAction implements UndoableEditLi
                 frame.setTitle("2L Proc-Sim -"+file.getAbsolutePath());
             }
             else {
-                frame.codeEditor.codeArea.append(fm.openFile(file.getAbsolutePath()));
+                //frame.codeEditor.codeArea.append(fm.openFile(file.getAbsolutePath()));
+                frame.codeEditor.codeArea.
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,"Error in saving file \n :"+ex.getMessage());
