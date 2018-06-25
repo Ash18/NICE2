@@ -44,6 +44,9 @@ public class RunMenuAction extends AbstractAction {
     * @param e component triggering this call
     */
     public void assembleAction(ActionEvent e) {
+        LC.codeEditor.linePainter.setLineNumber(1);
+        LC.codeEditor.codeArea.repaint();
+        AssembleLine.memAddressToLN.clear();
         LC.initialise();
         frame.assAgain();
     }

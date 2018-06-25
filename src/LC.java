@@ -23,9 +23,9 @@ import java.io.*;
 
 class LC extends JFrame implements KeyListener, ActionListener {
     /* constants for JFrame's height,width and origin */
-
-    private static final int FRAME_WIDTH  = 1024;
-    private static final int FRAME_HEIGHT  = 768;
+    //original FRAME_WIDTh=1024
+    private static final int FRAME_WIDTH  = 1500;
+    private static final int FRAME_HEIGHT  = 1000;
     private static final int FRAME_X_ORIGIN  = 0;
     private static final int FRAME_Y_ORIGIN  = 0;
 
@@ -158,7 +158,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
         JScrollPane outScroll = new JScrollPane(outPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         JPanel contentOutput = new JPanel();
         contentOutput.setLayout(new BorderLayout());
-        contentOutput.setBounds(0,542,655,140);
+        // original x=0 y=542 width=655 height=140
+        contentOutput.setBounds(0,542,800,140);
         contentOutput.add(outScroll, BorderLayout.CENTER);
         contentOutput.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Messages to user"),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
@@ -167,7 +168,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
         /* setting up the area where Code is written */
         codeEditor= new CodeEditor();
         codeEditor.setLayout(new ScrollPaneLayout());
-        codeEditor.setBounds(0,250,350,290);
+        //codeEditor.setBounds(0,250,350,290);
+        codeEditor.setBounds(0,49,536,290+203);
         // codeEditor.codeArea.setBackground(Color.lightGray);
         codeEditor.codeArea.setEditable(false);
         codeEditor.codeArea.addKeyListener(this);
@@ -259,13 +261,15 @@ class LC extends JFrame implements KeyListener, ActionListener {
         new JScrollPane(source,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);     
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.setBounds(350,250,305,290);
+        //contentPanel.setBounds(350,250,305,290);
+        contentPanel.setBounds(537,250,460,290);
         contentPanel.add(scrollArea, BorderLayout.CENTER);
         contentPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Assembler output"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         JPanel contentPane2 = new JPanel();
         contentPane2.setLayout(new BorderLayout());
-        contentPane2.setBounds(465,188,190,56);
+        //contentPane2.setBounds(465,188,190,56);
+        contentPane2.setBounds(810,0,190,50);
         contentPane2.add(modeSelect,BorderLayout.NORTH);
         contentPane2.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Assembler output mode"), BorderFactory.createEmptyBorder(0, 0, 0, 0)));
         contentPane.add(contentPanel);
@@ -299,7 +303,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
         
         JPanel contentPanech = new JPanel();
         contentPanech.setLayout(new BorderLayout());
-        contentPanech.setBounds(660,475,355,210);
+        //original x=660 y=475 width=355 height=210
+        contentPanech.setBounds(1000,475,355,210);
         contentPanech.add(scrollArea1, BorderLayout.CENTER);
         contentPanech.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("I/O ports"), BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
@@ -342,8 +347,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
             "Register","x0000000000","Register","x0000000000"
         } ;
         regPanel.initColumnSizes(LC.regPanel.valTable, longestValues);
-
-        regPanel.setBounds(0,45,460,199);
+        //regPanel.setBounds(0,45,460,199);
+        regPanel.setBounds(538,49,460,199);
         regPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Registers"),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         regPanel.valTable.getTableHeader().setReorderingAllowed(false);
@@ -370,7 +375,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
         int [] editableColNo= {
         } ;
         flagPanel = new TablePanel(flagData, flagColumn,editableColNo);
-        flagPanel.setBounds(465,45,190,135);
+        //original 465 45 190 135
+        flagPanel.setBounds(806,543,190,135);
         flagPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Flags"),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         flagPanel.valTable.getTableHeader().setReorderingAllowed(false);
@@ -400,7 +406,8 @@ class LC extends JFrame implements KeyListener, ActionListener {
         } ;
         memPanel.initColumnSizes(memPanel.table,longValues);
         memPanel.table.getTableHeader().setReorderingAllowed(false);
-        memPanel.setBounds(660,2,355,470);
+        //original x=660 y=2 width=355 height=470
+        memPanel.setBounds(1000,2,355,470);
         memPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Memory"),
         BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         memPanel.setVisible(true);
