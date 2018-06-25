@@ -25,13 +25,14 @@ class LinePainter implements Highlighter{
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(Color.CYAN);
+        g.setColor(new Color(173,216,230)   );
         try {
             System.out.println(Thread.currentThread());
             Rectangle rectangle=jTextPane.modelToView(jTextPane.getDocument().getDefaultRootElement().getElement(lineNumber-1).getStartOffset());
             if(!clear)
             g.fillRect(0,rectangle.y,jTextPane.getWidth(),rectangle.height);
-        } catch (BadLocationException e) {
+        } catch (Exception e) {
+            removeAllHighlights();
             e.printStackTrace();
         }
     }
