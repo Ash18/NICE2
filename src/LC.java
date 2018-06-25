@@ -899,13 +899,13 @@ class LC extends JFrame implements KeyListener, ActionListener {
     *  This method Assembles the code from codeArea. Tokenizes the instructions and
     *  passes them one-by-one to AssembleLine class for assemble process.
     */
+
     public static void assAgain() {
         assembleError = false;
         pc="000000";
         for(int i=0;i<lab.length;i++)
         for(int j=0;j<2;j++)
         lab[i][j]=null;
-        
         instAddress = "00000000";
         assembleCodeArea.setText("");
         // output.setText("");
@@ -918,12 +918,17 @@ class LC extends JFrame implements KeyListener, ActionListener {
         int lineNums = codeEditor.getSourceLineCount();
         BufferedReader bufStringReader = new BufferedReader(new StringReader(codeEditor.codeArea.getText()));
         AssembleLine aLine = new AssembleLine( assembleCodeArea, output);
+
         try {
             while (lineNums>0) {
                 lineNums--;
                 lineNos++;
                 line = bufStringReader.readLine();
                 line = preProcess(line);
+                // testing
+                System.out.println(line);
+                //
+                //if line is empty
                 if(line.length()==0) {
                     continue;
                 }
@@ -931,11 +936,18 @@ class LC extends JFrame implements KeyListener, ActionListener {
                 // Now send line for assembly ...
                 if (codeFormat==1){
                     instAddress = aLine.processLine(line,instAddress,lab,lineNos);
+                    System.out.println(instAddress);
+                    // mapping instruction addess to line number
+
                     if(instAddress=="-1") // if .end command.. stop assembling.
                     	break;
                 }
-                else if(codeFormat==0)
-                    instAddress = aLine.processBinLine(line,instAddress,lineNos);
+                else if(codeFormat==0) {
+
+                    instAddress = aLine.processBinLine(line, instAddress, lineNos);
+
+                }
+
                 if(error.equals("true")) {
                     error = "false";
                 }

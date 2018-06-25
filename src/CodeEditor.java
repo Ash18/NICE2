@@ -58,12 +58,17 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
         return index;
     }
     /** initialising the editor */
+    LinePainter linePainter=null;
     public CodeEditor() {
         super();
 
         final StyleContext cont = StyleContext.getDefaultStyleContext();
-        final AttributeSet attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
+        final AttributeSet attrBlue = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLUE);
         final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
+        final AttributeSet attrRed = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
+        // red for start halt end
+        final AttributeSet attrGreen = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.decode("#9400D3"));
+        // green for jump related instructions
         DefaultStyledDocument doc = new DefaultStyledDocument() {
             public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
                 super.insertString(offset, str, a);
@@ -75,11 +80,15 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
                 int wordR = before;
                 while (wordR <= after) {
                     if (wordR == after || String.valueOf(text.charAt(wordR)).matches("\\W")) {
-                        if (text.substring(wordL, wordR).matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)"))
-                            setCharacterAttributes(wordL, wordR - wordL, attr, false);
+                        String lowered=text.substring(wordL, wordR).toLowerCase();
+                        if (lowered.matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)"))
+                            setCharacterAttributes(wordL, wordR - wordL, attrBlue, false);
+                        else if (lowered.matches("(\\W)*(jmp|call|ret|jz|jn|jo|jc|jp|jnz|jnn|jno|jnc|jnp|jgt|jge|jlt|jle|jeq|jne)"))
+                            setCharacterAttributes(wordL, wordR - wordL, attrGreen, false);
+                        else if (lowered.matches("(\\W)*(.orig|.start|.end|halt)"))
+                            setCharacterAttributes(wordL, wordR - wordL, attrRed, false);
                         else
                             setCharacterAttributes(wordL, wordR - wordL, attrBlack, false);
-
                         wordL = wordR;
                     }
                     wordR++;
@@ -92,15 +101,22 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
                 int before = findLastNonWordChar(text, offs);
                 if (before < 0) before = 0;
                 int after = findFirstNonWordChar(text, offs);
-                if (text.substring(before, after).matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)")) {
-                    setCharacterAttributes(before, after - before, attr, false);
+                String lowered=text.substring(before, after).toLowerCase();
+                if (lowered.matches("(\\W)*(mov|load|store|in|out|add|sub|and|or|xor|not|shift|comp)")) {
+                    setCharacterAttributes(before, after - before, attrBlue, false);
                 }
-                else {
+                else if (lowered.matches("(\\W)*(jmp|call|ret|jz|jn|jo|jc|jp|jnz|jnn|jno|jnc|jnp|jgt|jge|jlt|jle|jeq|jne)"))
+                    setCharacterAttributes(before, after - before, attrGreen, false);
+                else if (lowered.matches("(\\W)*(.orig|.start|.end|halt)"))
+                    setCharacterAttributes(before, after - before, attrRed, false);
+                else
                     setCharacterAttributes(before, after - before, attrBlack, false);
-                }
             }
         };
         codeArea = new JTextPane(doc);
+        linePainter=new LinePainter();
+        codeArea.setHighlighter(linePainter);
+
         undo = new UndoManager();
         // setup codeArea area
         codeArea.setFont(MONO);

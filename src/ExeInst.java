@@ -51,14 +51,23 @@ public class ExeInst extends JPanel {
     */
     public void controlUnit(Boolean overRide) {
         MA = CustTable.pad(LC.pc,-8,"0");
+        if(AssembleLine.memAddressToLN.containsKey(Integer.parseInt(MA,16))){
+            int lineToHighLight=AssembleLine.memAddressToLN.get(Integer.parseInt(MA,16));
+            System.out.println("line to highlight "+lineToHighLight);
+            LC.codeEditor.linePainter.setLineNumber(lineToHighLight);
+            LC.codeEditor.codeArea.repaint();
+        }
+        else{
+
+        }
         Boolean isBPset = (Boolean) LC.memPanel.table.getValueAt(Integer.parseInt(MA,16),0);
         // Either BP is not set, or BP is being overridden for one step
         if(overRide||!isBPset) {     
             // common fetch phase 
             readMemoryWord();
-            System.out.println(MD);
+//            System.out.println(MD);
             IR = MD;
-            
+           // System.out.println(IR);
             if(LC.HWI==true){
             	LC.hwi.setSelected(false);
             	LC.hwi.setEnabled(true);
@@ -91,7 +100,7 @@ public class ExeInst extends JPanel {
     */
     private void Decode_Execute() {
         String in = HexToBinary(IR,32);
-
+        System.out.println("in "+in);
         if(in.substring(0,2).equals("00")) {
             // LOAD
             opcode="00";

@@ -1107,15 +1107,20 @@ public class AssembleLine {
     *
     * @ return String value representing the address of next instruction
     **/
+
+    static Map<Integer,Integer> memAddressToLN=new HashMap<>();
     private String Append(String [] binary,int count,int size, String instAddress) {
         String str="";
         if (assLineCnt==0) {
             assembleArea.append("Line  Mem Add  Content\n");
             assembleArea.append("----------------------\n");
+            memAddressToLN.clear();
         }            
         if(LC.error=="false") {
             int loc = Integer.parseInt(instAddress,16);
             instAddress= Integer.toHexString(loc);
+            System.out.println("loc "+loc);
+            memAddressToLN.put(loc,linecnt);
             assembleArea.append("["+pad(Integer.toString(linecnt),-2," ")+"]  ");
             assembleArea.append("x"+pad(Integer.toHexString(loc).toUpperCase(),-6,"0")+"  ");
             int k=0;
