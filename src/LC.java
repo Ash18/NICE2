@@ -23,6 +23,7 @@ import java.io.*;
 
 class LC extends JFrame implements KeyListener, ActionListener {
     /* constants for JFrame's height,width and origin */
+
     private static final int FRAME_WIDTH  = 1024;
     private static final int FRAME_HEIGHT  = 768;
     private static final int FRAME_X_ORIGIN  = 0;
