@@ -145,6 +145,7 @@ public class CodeEditor extends JScrollPane implements UndoableEditListener {
         lineNumbers.setBackground(Color.YELLOW);
         lineNumbers.setText("");
         lineNumbers.setFont(MONO);
+        
         lineNumbers.setVisible(true);
 
 /* New pseudo-ops .ASM and HEX are used to define input line format
