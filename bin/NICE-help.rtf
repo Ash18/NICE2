@@ -1,0 +1,220 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057\deflangfe2057{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}}
+{\*\generator Riched20 6.3.9600}{\*\mmathPr\mnaryLim0\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\widctlpar\b\f0\fs24\lang1033\par
+WELCOME TO NICE HELP \par
+[Version 2.1], October 2015\par
+\b0 -------------------------\par
+\par
+\b NICE\b0  is a JAVA program (i.e. class) which works as a simulator for the \b NICE\b0  processor introduced in the textbook \b Computer System Organization\b0 , by Naresh Jotwani, published by Tata McGraw-Hill. For the convenience of teachers and students, an assembler and loader has been integrated along with the simulator.\par
+\par
+For efficient interaction of the user with \b NICE\b0  assembler and simulator, the program has been provided with a user-friendly graphical user interface (GUI). The program should run on any JRE platform with jre 1.6.0 (or later).\par
+\par
+For convenience, this help document has been divided into six parts: \ul simulator screen areas\ulnone , \ul menu options\ulnone , \ul toolbar options\ulnone , \ul user interaction\ulnone , \ul sample programs\ulnone , \ul sample session\ulnone , and \ul feedback\ulnone . These parts have been placed below in that order - against letters A through G.\par
+\ul\par
+A. SIMULATOR SCREEN AREAS\par
+\ulnone\par
+Apart from menus and toolbar provided for user commands (which are explained below), the major part of the simulator screen is divided into eight areas. Starting from top left, scanning left-to-right and top-to-bottom, these areas are indicated in the following diagram:\par
+\par
+----------------------------------- \par
+|      Menus and toolbar           |\par
+|-------------------------------------------- \par
+|                 |            |             |\par
+|    Registers    |    Flags   |             |\par
+|                 |            |             |\par
+|------------------------------    Memory    |\par
+|                 |            |             |\par
+|                 | Assembler  |             |\par
+|    Code area    |   output   |             |\par
+|                 |            |------------- \par
+|                 |            |             |\par
+|------------------------------              |\par
+|                              |  I/O ports  |\par
+|      Messages to users       |             |\par
+|                              |             |\par
+--------------------------------------------- \par
+\par
+(1) \ul Menus and toolbar\ulnone\par
+\par
+For a description of the commands available on the various menus, see section B below. Commonly used menu options are also made available as icons on the toolbar (section C).\par
+ \par
+(2) \ul Registers\ulnone\par
+\par
+Contents of general-purpose processor registers R0 to R15, PC and IR are displayed in hex with letter 'x' in front to indicate hex format. As a program runs on the simulator, the contents are updated, but they cannot be changed by the user.\par
+\par
+(3) \ul Flags\ulnone\par
+\par
+Binary flags Z (zero), N (negative), O (overflow), C (carry) and P (parity) are displayed, and updated as the program runs. Flag values cannot be changed directly by the simulator user.\par
+\par
+(4) \ul Memory\ulnone\par
+\b\par
+NICE\b0  simulator provides 4K bytes of memory. In this part of the screen, memory locations from 0 to 4K-1 (i.e. 0 to 4095) are displayed. The display shows one byte per location of the byte-addressable memory, in binary format. \par
+\par
+In addition, if the user needs to define a program breakpoint at any location, that is achieved by a checkbox in the leftmost column in this part of the screen. User references to memory locations 4096 and above treated as 'no-operations'\par
+\par
+As the program runs, the memory contents are updated in the display, but they cannot be changed by the user.\par
+\par
+(5) \ul Code area\ulnone\par
+\par
+For a new program file, the user types in his/her assembly language programs in this code area. Simple text editing functions are available, and the program can be saved in a file.\par
+\par
+For an existing file, the user opens the file using File menu. The contents of the file are displayed in the code area, where they can be edited and/or assembled.\par
+\par
+When the user is ready to assemble the program in this area, he/she chooses the "Assemble" command from the Run menu or the toolbar. \par
+\par
+\ul NOTE\ulnone : Information about \b NICE\b0  assembly language is provided with a separate help option.\par
+\par
+(6) \ul Assembler output\ulnone\par
+\par
+Assembler output (in binary or hex) is shown in this area against the memory locations at which the output is loaded. Two checkboxes are provided to select between binary and hex output formats. \par
+\par
+Since the assembler is one-pass, it uses a technique known as 'back-patching' to fill in memory addresses of labels which are defined after use. Information about any such 'back-patched' labels is listed separately after the assembly output.\par
+\par
+(7) \ul I/O ports\ulnone\par
+\par
+The simulator provides 24 I/O ports, with addresses from decimal 0 to 23 (i.e. 00 to 17 hex). This area of the screen shows contents of these I/O ports in 8-bit binary. \par
+\par
+The user can change the current status of an I/O port by clicking on some/all bits of the selected port on the screen. Clicking on any bit will flip its value (i.e. \lquote 0\rquote  becomes \lquote 1\rquote , \lquote 1\rquote  becomes \lquote 0\rquote ).\par
+\par
+On an IN (input) instruction, the simulator inputs the current value of the given port and saves that 8-bit input value to the given register. \par
+\par
+On an OUT (output) instruction, the simulator displays the output byte at the appropriate port location in this area.\par
+\par
+Program references to higher numbered port numbers treated as 'no operations'.\par
+\par
+(8) \ul Messages to user\ulnone\par
+\par
+In this area, relevant error and other informative messages from the simulator, assembler and the running program are displayed for the user's benefit.\par
+\ul\par
+B. MENU OPTIONS\par
+\par
+\ulnone Note: Depending on the simulator operation in progress, some of the menu options are disabled. For example, if there is no program in the code area, then the Assemble and Go menu options are disabled.\par
+\par
+(1) \ul File menu\ulnone\par
+\par
+File menu offers the options 'New', 'Open', 'Import', 'Close', 'Save', 'Save As' and 'Exit'. These options have the usual meaning as in most other GUI application programs.\par
+\par
+(2) \ul Edit menu\ulnone  \par
+\par
+Edit menu offers options 'Undo', 'Redo', 'Cut', 'Copy' and 'Paste', which have the same meaning as in any other editor program.\par
+\par
+(3) \ul Run menu\ulnone  \par
+\par
+Run menu offers options 'Assemble', 'Step', 'Go', 'Pause', 'Reset' and 'Resume'. Since these options are specific to the simulator, they are explained in brief below:\par
+\par
+a. \ul Assemble\ulnone  - Causes program in the code area to be assembled. Assembly errors, if any, are displayed in the message area.\par
+\par
+b. \ul Step\ulnone  - 'Single step of execution', i.e. causes the single instruction pointed to by PC to be executed. \par
+\par
+c. \ul Go\ulnone  - Causes the program to be executed (i.e. run) from the current PC value. Execution proceeds until one of the following events occurs:\par
+\par
+- a HALT instruction is executed, \par
+- a breakpoint is encountered, or\par
+- the 'pause' option is selected to pause the running program.\par
+\par
+d. \ul Reset\ulnone  - Resets the state of the simulator, i.e. registers, flags, I/O ports and PC are set to zeros. Message area of the screen is cleared. Note that memory contents are not reset - i.e. the program which is loaded into memory continues to reside there.\par
+\par
+e. \ul Resume\ulnone  - Execution resumes from specified PC value. The option is similar to 'Go', but the user is prompted for a value of PC from which to resume execution. If null value is supplied by the user, execution resumes from current value of PC (i.e. then this option has the same effect as 'Go').\par
+\par
+\par
+In all cases, the current location of PC in memory is shown with the symbol \lquote <<<\rquote .\par
+\par
+---------------------------------------------------------\par
+| \ul NOTE\ulnone :                                                  |\par
+|                                                        |\par
+|(1) The displayed PC value is the address of the last   |\par
+|    machine instruction executed \endash  \ul not\ulnone  the address      |\par
+|    of the next instruction to be executed.             |\par
+|                                                        |\par
+|(2) When a breakpoint is reached, the instruction at    |\par
+|    the breakpoint is \ul not\ulnone  executed.                     |\par
+|                                                        |\par
+|(3) Setting of a breakpoint has no effect if a program  |\par
+|    is being executed in single-stepping mode.          |                            |\par
+|                                                        |\par
+---------------------------------------------------------\par
+\par
+(4) \ul Display menu\ulnone\par
+\par
+This menu allows the user to choose between binary and hexadecimal formats for the assembler output. The same two options are also available as checkboxes located just above the assembler output area of the simulator screen.\par
+\par
+(5) \ul Execution menu\ulnone  \par
+\par
+Execution of the running program can be made \ul Slow\ulnone , \ul Medium\ulnone  or \ul Fast\ulnone , depending on the user's preference. Basically, a delay is introduced after the execution of each \b NICE\b0  machine instruction, and the amount of delay depends on which of these three options has been selected by the user.\par
+\par
+(6) \ul Help menu\ulnone  \par
+\par
+The three options available in Help menu are, respectively, (i) information about the simulator (this file), (ii) information about \b NICE\b0  assembly language, and (iii) about the program.\par
+\par
+\ul C. TOOLBAR OPTIONS\par
+\ulnone\par
+The toolbar displayed just under the menus provides, for the user\rquote s convenience, icon buttons for many of the commonly-used menu options listed above. Brief tool-tip messages explain to the user the function of each icon button on the toolbar. \par
+\par
+Depending on the simulator operation in progress, some of the buttons are disabled. For example, if there is no program in the code area, then the \ul Assemble\ulnone  and \ul Go\ulnone  buttons are disabled.\par
+\par
+\ul D. USER INTERACTION\par
+\ulnone\par
+Overall, the user's interaction with the simulator is in two stages:\par
+\par
+(1) In the first stage, the user opens an assembly language program file and/or types in an assembly language program. This is the initial step in programming the \b NICE\b0  processor on the simulator. The assembled version of the program, which is loaded into memory by the assembler, is then ready to be executed.\par
+\par
+If any errors are reported by the Assembler, they must be corrected before assembler output can be loaded into memory.\par
+ \par
+(2) In the second stage, the user interacts with the running program through one or more of the following options:\par
+\par
+- single-stepping through the program, \par
+- setting breakpoints, \par
+- the \ul Pause\ulnone  option for a running program, \par
+- the \ul Go\ulnone  and \ul Resume\ulnone  option \par
+  (with option of specifying new PC value), and\par
+- the IN instruction for supplying input value from an I/O port.\par
+- \b Hardware interrupt \b0 button on toolbar panel. (HWI will start executeing the code written at memory x00 and then return to the actual code running.)\par
+\par
+\ul E. SAMPLE PROGRAMS\par
+\ulnone\par
+The sample assembly language programs included with \b NICE\b0  simulator are basically the same as those in the textbook. However, some minor additions have to be made to make the textbook programs compatible with the \b NICE\b0  assembler and simulator. For example, assembler directives of the \b NICE\b0  assembler are not described in the textbook, but they are required to assemble and run the programs on the simulator. \par
+\par
+The sample programs have been provided with names such as \lquote Prog4-3.asm\rquote , which corresponds to Program 4.3 as included in the textbook.\par
+\par
+The textbook versions of programs are sufficient for understanding processor concepts - e.g. addressing modes, function call and return, etc.\par
+\par
+The program versions included with the simulator are complete, in the sense that they can be assembled and executed.  \par
+\par
+\ul F. SAMPLE SESSION\par
+\ulnone\par
+Carry out the following steps:\par
+\par
+1. In the appropriate folder, execute the program \b NICE\b0  by double clicking on the icon.\par
+\par
+2. Use \ul Open\ulnone  option of \ul File\ulnone  menu (or toolbar icon), to open sample program file Prog4-2.asm\par
+\par
+3. Use \ul Assemble\ulnone  option of Run menu (or toolbar icon), to assemble the program. \par
+\par
+4. Examine the assembled code (in binary or hex, your choice), and correlate source line\par
+   number, memory address, and content with the assembly language pogram. \par
+\par
+5. Choose \ul Slow\ulnone  option of the \ul Execution\ulnone  menu.\par
+\par
+6. Use \ul Go\ulnone  option of \ul Run\ulnone  menu (or toolbar icon), to run the program. Watch register \par
+   contents, PC and IR values change until HALT. Note the messages to user.\par
+\par
+7. Use \ul Reset\ulnone  option of \ul Run\ulnone  menu (or toolbar icon) to reset the processor.\par
+
+\pard\widctlpar\tx7800\par
+8. Single-step through the program by using the toolbar icon. \par
+
+\pard\widctlpar\par
+9. Set breakpoint in memory area at address x000XXX by clicking on the checkbox in memory area.\par
+\par
+10. Run the program until breakpoint is reached, and examine register values, PC, etc. \par
+\par
+11. From the breakpoint, run the program until HALT\par
+\par
+\ul G. FEEDBACK\par
+\ulnone\b\par
+NICE\b0  simulator & assembler have been fairly well tested, including the assembly and execution of the sample programs mentioned above. However, it may happen that some small bugs still remain in the simulator program. Users are requested to send in any bug reports, comments, suggestions for improvements, etc to the feedback e-mail address provided with the textbook.\par
+\par
+\par
+\par
+\par
+}
+ 
